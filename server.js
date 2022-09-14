@@ -4,12 +4,12 @@ require('./config/connection')
 // const routes = require('./routes');
 
 const thought = new Thoughts({
-  text:'beanburrito',
+  text:'hello people',
   username:'mynameiscool',
   reaction: [
     {
-      body: 'love it',
-      username: 'averagespy',
+      body: 'hey dude',
+      username: 'stranger',
     }
   ]
 })

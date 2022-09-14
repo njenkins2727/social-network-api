@@ -2,10 +2,11 @@ const { Schema, model, now } = require('mongoose');
 
 //reaction schema 
 const reactionSchema = new Schema ({
-    type: String,
-    required: true,
-    validate: {
-       maxlength: 280,
+    body: { 
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280,
     },
     username: {  
         type: String,
@@ -20,16 +21,14 @@ const reactionSchema = new Schema ({
 const thoughtsSchema = new Schema(
   {
     text: {
-      type: String,
-      required: true,
-      validate: {
-          minlength: 1,
-          maxlength: 280,
-      }
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280,
     },
     username: { 
-     type: String,
-     required: true,
+        type: String,
+        required: true,
     },
     reaction: [ reactionSchema ],
   },
