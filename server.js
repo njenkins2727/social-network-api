@@ -1,6 +1,8 @@
 const express = require('express');
+const { default: mongoose } = require('mongoose');
+const { route } = require('./routes/api/Users');
 require('./config/connection')
-const apiRoutes = require('./routes/api');
+const apiRoutes = require('./routes/api/Users');
 //testing thought model
 // const thought = new Thoughts({
 //   text:'hello people',
@@ -13,6 +15,8 @@ const apiRoutes = require('./routes/api');
 //   ]
 // })
 // thought.save().then(console.log);
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;

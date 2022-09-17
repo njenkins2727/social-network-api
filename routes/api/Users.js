@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../../models/Users');
 
 const router = require('express').Router();
 
@@ -6,8 +6,8 @@ router.get('/user', (req, res) => {
 
 //get all users 
  User.find({})
-    .populate('thoughts,')
-    .populate('friends,')
+    .populate('thoughts')
+    .populate('friends')
     .then((users) => {
         res.json(users)
     })
