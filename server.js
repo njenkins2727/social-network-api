@@ -1,8 +1,7 @@
-const express = require('express');
-const { default: mongoose } = require('mongoose');
-const { route } = require('./routes/api/Users');
+const express = require('express'); 
 require('./config/connection')
-const apiRoutes = require('./routes/api/Users');
+const apiRoutes = require('./routes/api');
+
 //testing thought model
 // const thought = new Thoughts({
 //   text:'hello people',
@@ -30,4 +29,3 @@ app.use('/api', apiRoutes);
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
   });
-
