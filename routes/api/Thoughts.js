@@ -1,4 +1,4 @@
-// const Thoughts = require('../../models/Thoughts');
+// const Thought = require('../../models/Thoughts');
 
 const router = require('express').Router();
 
