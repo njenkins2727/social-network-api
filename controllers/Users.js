@@ -111,20 +111,18 @@ addFriend(req, res) {
 removeFriend(req, res) {
   User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $pull: { friends: { friendsId: req.params.assignmentId } } },
+    { $pull: { friends: req.params.friendsId } },
     { runValidators: true, new: true }
   )
-    .then((student) =>
-      !student
+    .then((user) =>
+      !user
         ? res
             .status(404)
-            .json({ message: 'No student found with that ID :(' })
-        : res.json(student)
+            .json({ message: 'No user found with that ID :(' })
+        : res.json(user)
     )
     .catch((err) => res.status(500).json(err));
 },
-
-
 }
 
 module.exports = userController;
