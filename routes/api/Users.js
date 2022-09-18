@@ -3,13 +3,14 @@ const {
     getUser,
     getSingleUser,
     createUser,
+    updateUser
 } = require('../../controllers/Users');
 
 // /api/user
 router.route('/').get(getUser).post(createUser);
 
 // /api/users/:userId
-router.route('/:userId').get(getSingleUser)//.put(updateUser).delete(deleteUser)
+router.route('/:userId').get(getSingleUser).put(updateUser)//.delete(deleteUser)
 // /api/users/:useId/friends
 
 

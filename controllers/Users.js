@@ -48,9 +48,21 @@ createUser(req, res) {
       return res.json(users) 
     })
     .catch((err) => res.status(500).json(err));
-}
-}
+},
 // //put/ update user by id
+
+updateUser({params, body}, res) {
+  console.log(params, body)
+  User.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
+  .then(dbUsersData => {
+      if(!dbUsersData) {
+          res.status(500).json({message: 'No User with this particular ID!'});
+          return;
+      }
+      return res.json(dbUsersData);
+  })
+  .catch(err => res.json(err))
+}
 
 // //delete user by id 
 // deleteUser(req, res) {
@@ -62,5 +74,9 @@ createUser(req, res) {
   //add _id in id column 
 
 //remove friend
+
+
+
+}
 
 module.exports = userController;
