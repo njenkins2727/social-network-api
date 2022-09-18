@@ -51,27 +51,62 @@ createUser(req, res) {
 },
 // //put/ update user by id
 
-updateUser({params, body}, res) {
-  console.log(params, body)
-  User.findOneAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
-  .then(dbUsersData => {
-      if(!dbUsersData) {
-          res.status(500).json({message: 'No User with this particular ID!'});
-          return;
+updateUser(req, res) {
+  User.findOneAndUpdate(
+    { _id: req.params.userId },
+    {
+      $set: req.body, 
+    },
+    {
+      runValidators: true,
+      new: true,
+    }
+  )
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        return res.status(404).json({ message: 'No user with this id!' });
       }
-      return res.json(dbUsersData);
+      res.json(dbUserData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+},
+
+// delete user by id 
+deleteUser(req, res) {
+  User.findOneAndRemove({ _id: req.params.userId })
+  .then((user) => {
+    !user
+          ? res.status(404).json({ message: 'No such user exists' })
+          : Thought.findOneAndUpdate(
+              { users: req.params.userId },
+              { $pull: { users: req.params.userId } },
+              { new: true }
+            )
   })
-  .catch(err => res.json(err))
-}
-
-// //delete user by id 
-// deleteUser(req, res) {
-
-// }
+},
 
 //add friend 
-  //find user with id 
-  //add _id in id column 
+addFriend(req, res) {
+  console.log('You are adding a friend');
+  console.log(req.body);
+  User.findOneAndUpdate(
+    { _id: req.params.userId },
+    { $addToSet: { assignments: req.body } },
+    { runValidators: true, new: true }
+  )
+    .then((user) =>
+      !user
+        ? res
+            .status(404)
+            .json({ message: 'No user found with that ID :(' })
+        : res.json(user)
+    )
+    .catch((err) => res.status(500).json(err));
+},
+
 
 //remove friend
 
