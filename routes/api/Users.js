@@ -6,10 +6,10 @@ const {
 } = require('../../controllers/Users');
 
 // /api/user
-router.route('/users').get(getUser).post(createUser);
+router.route('/').get(getUser).post(createUser);
 
 // /api/users/:userId
-router.route('/users/:userId').get(getSingleUser);
+router.route('/:userId').get(getSingleUser);
 // /api/users/:useId/friends
 
 

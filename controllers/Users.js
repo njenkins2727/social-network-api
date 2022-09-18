@@ -4,18 +4,23 @@ const User = require('../models/Users');
 const { ObjectId } = require('mongoose').Types
 
 // //get all users 
-const getUser = function (req, res) {
+const userController = {
+
+getUser(req, res) {
     User.find()
-    .then(async (users) => {
-        const userObj = {
-            users
-        }
-       return res.json(userObj);
-    })
-}
+      .select('-__v')
+      .then((dbUserData) => {
+        res.json(dbUserData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
 
 //Get single user by id 
-const getSingleUser = function(req,res) {
+getSingleUser(req,res) {
     User.findOne({ _id: req.params.UserID })
     //Populate thoughts and friend data to get single user,
     .populate('thoughts,')
@@ -31,20 +36,17 @@ const getSingleUser = function(req,res) {
         console.log(err);
         return res.status(500).json(err);
       });
-    }
+    },
 
 // //post/create  new user 
-const createUser = function (req, res) {
+createUser(req, res) {
   User.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));
+}
 }
 // //put/ update user by id
 
 // //delete user by id 
 
-module.exports = {
-    getUser,
-    getSingleUser,
-    createUser,
-}
+module.exports = userController;
