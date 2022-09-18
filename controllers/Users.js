@@ -92,7 +92,7 @@ deleteUser(req, res) {
 addFriend(req, res) {
    User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $addToSet: { friends: req.params.friendId } },
+    { $addToSet: { friends: req.params.friendsId } },
     { new: true }
     )
      .then((dbUserData) => {
@@ -108,7 +108,21 @@ addFriend(req, res) {
  },
 
 //remove friend
-
+removeFriend(req, res) {
+  User.findOneAndUpdate(
+    { _id: req.params.userId },
+    { $pull: { friends: { friendsId: req.params.assignmentId } } },
+    { runValidators: true, new: true }
+  )
+    .then((student) =>
+      !student
+        ? res
+            .status(404)
+            .json({ message: 'No student found with that ID :(' })
+        : res.json(student)
+    )
+    .catch((err) => res.status(500).json(err));
+},
 
 
 }
