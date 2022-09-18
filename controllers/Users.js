@@ -90,23 +90,22 @@ deleteUser(req, res) {
 
 //add friend 
 addFriend(req, res) {
-  console.log('You are adding a friend');
-  console.log(req.body);
-  User.findOneAndUpdate(
+   User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $addToSet: { assignments: req.body } },
-    { runValidators: true, new: true }
-  )
-    .then((user) =>
-      !user
-        ? res
-            .status(404)
-            .json({ message: 'No user found with that ID :(' })
-        : res.json(user)
+    { $addToSet: { friends: req.params.friendId } },
+    { new: true }
     )
-    .catch((err) => res.status(500).json(err));
-},
-
+     .then((dbUserData) => {
+       if (!dbUserData) {
+         return res.status(404).json({ message: 'No user with this id!' });
+       }
+       return res.json(dbUserData);
+     })
+     .catch((err) => {
+       console.log(err);
+       res.status(500).json(err);
+     });
+ },
 
 //remove friend
 
