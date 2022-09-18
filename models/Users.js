@@ -29,7 +29,7 @@ const userSchema = new Schema(
     friends: [
         {
           type: Schema.Types.ObjectId,
-          ref: 'user',
+          ref: 'users',
         },
       ],
   },
@@ -45,14 +45,14 @@ userSchema.virtual('friendCount').get(function(){
     return this.friends.length;
 })
 
-const User = model('user', userSchema);
+const User = model('users', userSchema);
 
 //testing
 // const user = new User({
-//     username: "  abbb   ",
-//     email: "hey@gmail.com",
-//     thoughts:[],
-//     friends:[],
+    // username: "  abbb   ",
+    // email: "hey@gmail.com",
+    // thoughts:[],
+    // friends:[],
 // })
 // console.log(user)
 // user.save();

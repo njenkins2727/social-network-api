@@ -1,26 +1,19 @@
-// const User = require('../../models/Users');
+const router = require('express').Router();
+const {
+    getUser,
+    getSingleUser,
+    createUser,
+} = require('../../controllers/Users');
 
-// const router = require('express').Router();
+// /api/user
+router.route('/users').get(getUser).post(createUser);
 
-// router.get('/user', (req, res) => {
-
-// //get all users 
-//  User.find({})
-//     .populate('thoughts')
-//     .populate('friends')
-//     .then((users) => {
-//         res.json(users)
-//     })
-// })
+// /api/users/:userId
+router.route('/users/:userId').get(getSingleUser);
+// /api/users/:useId/friends
 
 
-// //get single user by id 
-//   //populate thoughts and friend data 
+// /api/users/:userId/friends/:friendId
 
-// //post/create  new user 
 
-// //put/ update user by id
-
-// //delete user by id 
-
-// module.exports = router
+module.exports = router

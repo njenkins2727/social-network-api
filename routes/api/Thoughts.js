@@ -1,6 +1,6 @@
 // const Thoughts = require('../../models/Thoughts');
 
-// const router = require('express').Router();
+const router = require('express').Router();
 
 
 // router.get('/thoughts', (req,res) => {
@@ -13,4 +13,4 @@
 // })
 
 
-// module.exports = router
+module.exports = router

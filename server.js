@@ -1,8 +1,8 @@
 const express = require('express'); 
-require('./config/connection')
-const apiRoutes = require('./routes/api');
+const db = require('./config/connection');
+const router = require('./routes');
 
-//testing thought model
+// testing thought model
 // const thought = new Thoughts({
 //   text:'hello people',
 //   username:'mynameiscool',
@@ -22,10 +22,11 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use('/api', apiRoutes);
+app.use( router);
 
 // sync sequelize models to the database, then turn on the server
+db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
   });
+});
